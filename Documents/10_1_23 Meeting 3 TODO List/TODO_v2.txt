@@ -1,0 +1,123 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	## Get accquainted with Unity ##
+		|
+		'-> Watch Tutorials
+		|	|
+		|	'-> Don't stress too hard about watching all of them. It seemed like after around 3-ish of the videos watched,
+		|		Ethan and Connor garnered the info needed to accomplish our goal this week.
+		|
+		'-> Browse Documentation Links
+		|	|
+		|	'-> UNITY PACKAGES FOR 2D:	 -->	   https://docs.unity3d.com/Manual/Quickstart2DSetup.html 	 <--
+		|	|
+		|	'-> UNITY BASICS:		 -->	   https://docs.unity3d.com/Manual/Quickstart2DCreate.html	 <--
+		|
+		'-> Explore the Sample Scene
+			|
+			'-> Check out the file hierarchy (ex: Character/, we will be using nearly an identical setup
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+	## Build Dev Scene ##
+		|
+	   (MAIN QUESTS)
+		|
+		'-> Scene
+		|	|
+		|	'-> Basic plain area for a player to test movement in. Doesn't need any fancy bells or whistles right now.
+		|		|
+		|		'-> For a main goal, try to get a foundation to stand on, and walls on either side to begin with.
+		|
+		'-> Player
+		|	|
+		|	'-> Cube or static image that when WASD(arrow if you want too) keys are pressed, the player can walk left and right. Tile size of 1x1.
+		|		|
+		|		'-> Try to add a jump function. If not that, possibly the ability to move up and down without gravity (down would probably be temporary).
+		|
+		'-> Enemy
+		|	|
+		|	'-> Cube or static image that when landed on / a player collides with on the top side, the enemy dies / disappears. Tile size of 1x1
+		|	|
+		|	'-> When the player collides with the left, right, or bottom side, kill the player.
+		|
+	   (SIDE QUESTS) <------- (NOT NEEDED QUITE YET, DON'T STRESS ABOUT THESE!)
+		|
+		'-> Scene
+		|	|
+		|	'-> If you are up for up too, try a platform that a player can jump through on the bottom, but cannot fall through from the top.
+		|	|
+		|	'-> Another thing if you want to attempt it, try a bottomless pit/gap in the foundation that kills the player if they fall in.
+		|
+		'-> Player
+		|	|
+		|	'-> Implement gravity for jumping so that the player doesn't continually fly up.
+		|		|
+		|		'-> Also so the player doesn't have omnidirectional flight in a platformer, that removes the challenge.
+		|
+		'-> Enemy
+		|	|
+		|	'-> Have the enemy patrol / walking back and forth or around. We're basically imitating the classic Goomba interaction from Mario.
+		|	|
+		|	'-> Make a different enemy, and give them a new quirk. I recommend even keeping it as simple as of a moveset/behavior addition as possible.
+		|	'-> EXAMPLES:
+		|		|
+		|		'-> Give them a method to attack back.
+		|		|
+		|		'-> Make them randomly jump.
+		|		|
+		|		'-> Make them a different tile size than 1x1, like 2x2, 3x1, 1x3, etc.
+		|		|
+		|		'-> Make them move faster or slower than others.
+		|		|				
+		|		'-> Make them follow/pursue the player.
+		|
+		|
+		'-> Tiles
+			|
+			'-> (AMANDA/EVERYONE) Try making some "Test Tiles" (16x16 or 32x32 for a resolution).
+			|
+			'-> (EVERYONE) Ideally, try to make a whole theme of something you think looks good!
+		
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+	## Partition Tasks for Core Game Loop Expansion? ##
+		|
+		'-> Fluid Character Movement (Acceleration and Momentum) - Jhet
+		|
+		'-> Explore Character Animation in Unity - Amanda
+		|
+		'-> Title Screen/Menu - (Unassigned as of 10/1/23)
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+	## Grid ##
+		|
+		|
+		|
+		(CORE GAME OBJECT ZONES/LAYERS)
+		|	|
+		|	'-> Play Area Layer
+		|	|	|
+		|	|	'-> Terrain, Player, Enemies, Collectibles, Powerups, Projectiles, ETC.
+		|	|
+		|	'-> Background
+		|		|
+		|		'-> Distant image behind everything.
+		|			|
+		|			'-> PARALLAX: image scrolls slower in the background for an illusion of depth (slower = feels further away).
+		|
+		(EXTENSION GAME OBJECT ZONES/LAYERS)
+			|
+			'-> Foreground
+			|	|
+			|	'-> Designs/images that obscure everything else (Play Area, Wall, and Background layers).
+			|
+			'-> Wall
+			      |
+			      '->  A layer right behind the terrain, a sort of close background to help convey partial interiors (think Terraria walls).
+
+///////////////////////////////////////////////////////////////////////////////
