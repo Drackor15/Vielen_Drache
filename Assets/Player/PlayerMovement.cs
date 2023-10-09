@@ -7,17 +7,23 @@ public class PlayerMovement : MonoBehaviour
     #region Player Variables
     /* Player Variables
      * "rb"     linked to the sprite's rigidbody(physics) component
+     * "coll"   linked to the sprite's boxcollider component
      * "sprite" linked to the sprite's renderer component
      * "anim"   linked to the animation component
      * "dirX"   linked to Player's Horizontal Axis data
+     * 
+     * "jumpableGround" linked to the LayerMask which we want to jump on
      * 
      * "moveSpeed"  player constant
      * "jumpForce"  player constant
      */
     private Rigidbody2D rb;
+    private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
     private float dirX = 0f;
+
+    [SerializeField] private LayerMask jumpableGround;
 
     [SerializeField] private float moveSpeed = 11f;
     [SerializeField] private float jumpForce = 30f;
@@ -28,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // GetComponent at start, because it doesn't need to be done more than once.
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
     }
@@ -49,12 +56,12 @@ public class PlayerMovement : MonoBehaviour
          * Input.GetAxisRaw("Horizontal") would stop the slide/deacceleration effect.*/
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
-
+        
         /* If spacebar is pressed, access sprite rigidbody2D component, and make it jump.
          * HARDCODED --> GetKey("space") = Continuous, GetKeyDown("space") = Only once.
          * VERSATILE --> GetButton("Jump") = Continuous, GetButtonDown("Jump") = Only once.
          * GetButtons connects to Unity, allowing better control schemes (multiple buttons can do the same thing).*/
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && IsGrounded())
         {
             /* Vector3 is a data holder for 3 different values (X, Y, and Z coordinates). In this case, Vector2 is just X and Y values.
              * You must specify how much speed/velocity goes into each direction X and Y. --> (Don't do Z usually because it's depth!)*/
@@ -78,6 +85,15 @@ public class PlayerMovement : MonoBehaviour
         else {
         
         }
+    }
+
+    /// <summary>
+    /// Creates a Box Collider (equal in size to the Player BoxCollider)
+    /// slightly below the Player collider to detect if the player is on jumpable ground.
+    /// </summary>
+    /// <returns>True if on jumpable ground; False if anywhere else</returns>
+    private bool IsGrounded() {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
     }
     #endregion
 }
