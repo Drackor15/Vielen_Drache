@@ -4,10 +4,9 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 /// <summary>
-/// A base class for all basic enemies. Classes that inherit this class SHOULD NOT
-/// implement their own Start(), Update(), or Awake() methods. If a custom Enemy
-/// needs to override or extend the behaviour of one of these methods; you should
-/// Override OnStart() or OnUpdate()
+/// A base class for all basic enemies. Classes that inherit this class should
+/// base.Start() or base.Update() if they wish to extend but not fully override
+/// the core functionality of this class.
 /// </summary>
 public class BaseEnemy : MonoBehaviour {
     #region Enemy Variables
@@ -29,35 +28,13 @@ public class BaseEnemy : MonoBehaviour {
     [SerializeField] protected float attackSpeed;
     #endregion
 
-    /// <summary>
-    /// Called by Start. The purpose of this method is so that child classes
-    /// can use, but extend the base behaviour of BaseEnemy. If the code within
-    /// OnStart() was simply put in Start(), child classes are forced into an
-    /// 'all or nothing' situation where they are either using BaseEnemy's Start method
-    /// or their own.
-    /// </summary>
-    protected virtual void OnStart() {
+    protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
     }
 
-    /// <summary>
-    /// Called by Update. The purpose of this method is so that child classes
-    /// can use, but extend the base behaviour of BaseEnemy. If the code within
-    /// OnUpdate() was simply put in Update(), child classes are forced into an
-    /// 'all or nothing' situation where they are either using BaseEnemy's Update method
-    /// or their own.
-    /// </summary>
-    protected virtual void OnUpdate() {
+    protected virtual void Update() {
         ChasePlayer();
-    }
-
-    protected void Start() {
-        OnStart();
-    }
-
-    protected void Update() {
-        OnUpdate();
     }
 
     #region Player Detection Methods
