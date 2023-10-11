@@ -80683,7 +80683,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7509920858001907038, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
   m_PrefabInstance: {fileID: 1502480804377537834}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2000298866
+--- !u!114 &2000298871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80702,9 +80702,10 @@ MonoBehaviour:
   moveSpeed: 0
   jumpForce: 0
   playerDetectRange: 10
-  playerChaseRange: 0
+  playerChaseRange: 25
   attackDMG: 0
-  attackRange: 0
+  attackRange: {x: 6, y: 1.5}
+  attackSize: {x: 0, y: 0}
   telegraphSpeed: 0
   attackSpeed: 0
 --- !u!1001 &1502480804377537834
@@ -80825,7 +80826,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7509920858001907038, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2000298866}
+      addedObject: {fileID: 2000298871}
   m_SourcePrefab: {fileID: 100100000, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
