@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 152191485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.45, y: 0.29, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10568,7 +10568,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -10587,7 +10587,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -10595,7 +10595,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 1
+  showGraphs: 0
 --- !u!4 &740712771
 Transform:
   m_ObjectHideFlags: 0
@@ -80774,9 +80774,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: jumpForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: moveSpeed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 152191487}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: jumpableGround.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386195600725896552, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 179bc84b0a6655845b17c59e914a3f1b, type: 2}
     - target: {fileID: 7509920858001907038, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: m_Name
       value: Grunt
