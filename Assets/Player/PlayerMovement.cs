@@ -16,17 +16,20 @@ public class PlayerMovement : MonoBehaviour
      * 
      * "moveSpeed"  player constant
      * "jumpForce"  player constant
+     * "jumpForce2" A player constant might remove or change 
      */
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
     private float dirX = 0f;
+    private bool doublejump;
 
     [SerializeField] private LayerMask jumpableGround;
 
     [SerializeField] private float moveSpeed = 11f;
-    [SerializeField] private float jumpForce = 30f;
+    [SerializeField] private float jumpForce = 28f;
+    [SerializeField] private float jumpForce2 = 25f;
     #endregion
 
     // Start is called before the first frame update.
@@ -65,7 +68,14 @@ public class PlayerMovement : MonoBehaviour
         {
             /* Vector3 is a data holder for 3 different values (X, Y, and Z coordinates). In this case, Vector2 is just X and Y values.
              * You must specify how much speed/velocity goes into each direction X and Y. --> (Don't do Z usually because it's depth!)*/
+            doublejump = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        else if(Input.GetButtonDown("Jump") && doublejump == true)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce2);
+            doublejump = false;
+
         }
     }
 
