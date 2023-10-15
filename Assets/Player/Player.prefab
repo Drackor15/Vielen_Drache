@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6330970518811193579}
   - component: {fileID: 3339970190766720145}
   m_Layer: 7
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,3 +176,4 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 11
   jumpForce: 30
+  grav: 7.5
