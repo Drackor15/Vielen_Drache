@@ -23,13 +23,15 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator anim;
     private float dirX = 0f;
+    
     private bool doublejump;
+    private bool powerG = true;
 
     [SerializeField] private LayerMask jumpableGround;
 
     [SerializeField] private float moveSpeed = 11f;
-    [SerializeField] private float jumpForce = 28f;
-    [SerializeField] private float jumpForce2 = 25f;
+    [SerializeField] private float jumpForce = 30f;
+    [SerializeField] private float grav = 7.5f;
     #endregion
 
     // Start is called before the first frame update.
@@ -73,9 +75,21 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(Input.GetButtonDown("Jump") && doublejump == true)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce2);
             doublejump = false;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * 2/3f );
+        }
+        else if (Input.GetButtonDown("Jump") && doublejump == false && powerG == true)
+        {
+            powerG = false;
+            rb.gravityScale = grav / 1.5f;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.4f);
+            
+        }
 
+        if (IsGrounded() && powerG == false)
+        {
+            powerG = true;
+            rb.gravityScale = grav;
         }
     }
 
