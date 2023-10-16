@@ -10384,7 +10384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACIn+vEoJYjYQIAABgFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzqWDCZCkt9YQ0gOBCe3k4ossr7EGWfLog68M/70r2cYOPSHevt19+7TyJ+HSVMCs0kvNs5XKgPwYEH8m3wZd8BVOdKfkll+g5XzwzBaeRAPnnVquEI98mlElWM3ZT7kTnjxC0EmeK10ush3EyliDcE6FAQxpZX22ROhzQE74M3z2KWc8jR/96YKn59HgikcG0oLuqNH4+7TlhpPn1lQnmaBlBZnX3WXMbrWngSZxooYxChWYEoKbRhCx5yoMHNPKOBwHCRmnOGBQ4ectgO8K6wv2k9d5bsA202t6nnONPtVVyS9Vm1dSs6+VHahwvs9sEkTVNVf/hYdRCOdala9t22jkW9iCs/07PTNqbM/cPjz/qtvJIxV7mgr4KEC+qaVWTmYYtNr5VGdgPO/+3iaLC2D7Dq+l3oGu6gxv/W5v0s9wDcOfYsHLNBg/qYGtUMHusACg8Wp+o+CwHqYpgahX8dfAH7rr71ETeOHaWAw1U0ovL1VOeypZBM/8NM7GSksIcCO6AkmFPW+wjL2/wbtYr+1d5IX6F9M0b2LtQ7hLCXDHH43uQht1vF2WKdRxBaZYOyu4hE60D7yhT7GSsl6wvidt2tbpnLJe2s7x7OtqEXhKH6d0Fj1EwCCCyfCJzaI0Tyf5wzh/njylJOwelzgnFZtaaGMP3prsikvcs/ZDMlhqWoVlzzQ9LvmlVD3LuczVlmkAua4r3ISDxib4LLNFxtGgLVjLZbhv8pkQodgesuRWKAmTLk5W06SrkpCKH5T1SELi8OVIiIdvu7zRcOBw9M3bYldy/QdQSwMEFAAACAgAAIif66dOF7ttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKqRZK5aaKZobFhanKqYaqJrkWymWFSWpJJmrFRmqWJRZJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAIif68SgliNhAgAAGAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAIif66dOF7ttAAAAeAAAAAkAJAAAAAAAAAAAAAAArgIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABmAwAAAAA=
+    dataString: UEsDBBQAAAgIAACIn+vnjlxQXwIAABcFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzqWDCSFJby0hpIckTGgnF19keY01yJJHHwGS4b93V7axQ08s+/ne25U/mdSuBuGNXVmZP5kc2I8RI5t9G/XBRzjwrdEb+QFdzpvMfUlJPOa8ci8N+hMqc6YCb6X4qbeKkifoDFoWxlbLfAsL47xDd8GVAwxZ46lao+tzxA74M76jkiNa0xuyPtC6m4xOaArQHmyfmky/X3e50aLcJjVooXhVQ064+4r5ufd1TNPIqM2YxA7CKCVdC4j5Yx0Jb+oSLBDjXHLkF0EQ3RLktvTUb1j7UhQOfEve8uO9tChT05T9Mo12FXe7Btg7V4HGzGcRU9Pz6b/wOInhwprqsRubTGiEL6XYvfKj4M4PtB2677/iDnrP1Y5nCt5K0M9mZU3QOQa9DVQaHEzv+79nZosSxK73N1AvnKHu9e7k7hZJHE6R/GGhZJVF3WeNY6NMVDvuHyxu5jcCjtfh2hboJRR/Hfzh2+EZtYEHaZ3HUMtSE7zMBEupbBk1IzbBL4zVEN0t6Bo0V/64xjb+coMXscHYi8gDpwfTDm9j3Tu4KInuPn8yuQitzf68LFea/RO48iV4JTX0oCnwjDotjNbNgQ016co2wRZcDMq2QeZfT4vBbXZzzefJVQICEpiNb8U8yYpsVlxNi7vZbcbi7UmNPLlaN0BbeXBrum+u8c6678hoZXkdjz23fL+SH5UZSC51YTbCAuiXpsMZOFgcgq8yX+YSBdqA91LHfbPPlCkjdpCn50ZpZLo8eMvTvkvKavluPHlStogfjpSR+3zLawvvEvY0vGt2Yqd/UEsDBBQAAAgIAACIn+unThe7bQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrRSqkWSuWmimaGxYWpyqmGqia5FsplhUlqSSZqxUZqliUWSUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACIn+vnjlxQXwIAABcFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACIn+unThe7bQAAAHgAAAAJACQAAAAAAAAAAAAAAKwCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZAMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -10424,7 +10424,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 0
+  showGraphs: 1
 --- !u!4 &740712771
 Transform:
   m_ObjectHideFlags: 0
@@ -80603,25 +80603,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: jumpForce
-      value: 30
+      propertyPath: maxLeap.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: moveSpeed
-      value: 18
+      propertyPath: maxLeap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: maxSpeed.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: maxSpeed.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 152191487}
-    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: jumpableGround.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6386195600725896552, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 179bc84b0a6655845b17c59e914a3f1b, type: 2}
     - target: {fileID: 7509920858001907038, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: m_Name
       value: Grunt
@@ -80679,6 +80679,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1958387141077562862, guid: b5b4fa57ba9824f49ae6edfbdcc507e9, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4550019646797786900, guid: b5b4fa57ba9824f49ae6edfbdcc507e9, type: 3}
       propertyPath: m_Name
       value: Player

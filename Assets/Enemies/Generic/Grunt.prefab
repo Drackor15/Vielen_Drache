@@ -113,7 +113,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6386195600725896552
 BoxCollider2D:
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7509920858001907038}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 179bc84b0a6655845b17c59e914a3f1b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -176,12 +176,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   playerTransform: {fileID: 0}
+  pathfindingUpdateFrequency: 0.2
   nextWaypointDistance: 3
   playerDetectRange: 10
   chaseMultiplier: 2.25
   hp: 0
-  moveSpeed: 0
-  jumpForce: 0
+  moveSpeed: 18
+  maxSpeed: {x: 0, y: 0}
+  maxLeap: {x: 0, y: 0}
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
   attackDMG: 0
   attackRange: {x: 6, y: 1.5}
   attackSize: {x: 0, y: 0}
