@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using TMPro;
 using UnityEngine;
 
 public enum PlayerPower
@@ -30,20 +31,18 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
-    private Animator anim;
+//    private Animator anim;
     private float dirX = 0f;
 
     private bool isGrounded = false;
     private int holdingJumpCounter = 0;
     private bool canDoubleJump = false;
     private bool canTripleJump = false;
+    private double gOff = 0;
 
-    PlayerPower playerPower = PlayerPower.Mobility;
+    private PlayerPower playerPower = PlayerPower.Mobility;
 
     [SerializeField] private LayerMask jumpableGround;
-
-    [SerializeField] private float moveSpeed = 11.0f;
-    [SerializeField] private float grav = 7.5f;
     #endregion
 
     // Start is called before the first frame update.
@@ -53,20 +52,20 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+//        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame.
     private void Update()
     {
-        updatePlayerState();
+        UpdatePlayerState();
         HandlePlayerInput();
         UpdatePlayerAnimation();
     }
 
     #region Update Methods
 
-    private void updatePlayerState()
+    private void UpdatePlayerState()
     {
         isGrounded = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);   // investigate
         if ( isGrounded )
@@ -80,34 +79,32 @@ public class PlayerMovement : MonoBehaviour
     {
         dirX = Input.GetAxisRaw("Horizontal");  // -1, 0, 1
 
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(dirX * 11.0f, rb.velocity.y);
 
         if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
             {
-                Debug.Log("What");
-                holdingJumpCounter = 27;
-                rb.velocity = new Vector2(rb.velocity.x, 16);
+                holdingJumpCounter = 20;
+                rb.velocity = new Vector2(rb.velocity.x, 14);
             }
             else if (canDoubleJump)
             {
                 canDoubleJump = false;
-                rb.velocity = new Vector2(rb.velocity.x, 25);
+                rb.velocity = new Vector2(rb.velocity.x, 22);
             }
             else if (playerPower == PlayerPower.Mobility && canTripleJump)
             {
                 canTripleJump = false;
-                rb.velocity = new Vector2(rb.velocity.x, 27);
+                rb.velocity = new Vector2(rb.velocity.x, 22);
             }
         }
         else if (Input.GetButtonUp("Jump"))
             holdingJumpCounter = 0;
         else if (holdingJumpCounter > 0)
         {
-            Debug.Log("Here");
-            if (holdingJumpCounter > 12)
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + 0.75f);
+            if (holdingJumpCounter < 8)
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + 1.45f);
             --holdingJumpCounter;
         }
     }
