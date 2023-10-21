@@ -180,13 +180,16 @@ MonoBehaviour:
   nextWaypointDistance: 3
   playerDetectRange: 10
   chaseMultiplier: 2.25
-  hp: 0
-  moveSpeed: 18
-  maxSpeed: {x: 0, y: 0}
-  maxLeap: {x: 0, y: 0}
-  jumpableGround:
+  isDefaultPatrol: 1
+  patrolDirection: 1
+  pausePatrolTime: 3
+  walkableGround:
     serializedVersion: 2
     m_Bits: 64
+  hp: 0
+  moveSpeed: 18
+  patrolSpeed: 12
+  maxSpeed: {x: 20, y: 20}
   attackDMG: 0
   attackRange: {x: 6, y: 1.5}
   attackSize: {x: 0, y: 0}

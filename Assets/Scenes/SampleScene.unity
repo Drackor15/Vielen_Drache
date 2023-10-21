@@ -80603,22 +80603,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: maxLeap.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: maxLeap.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: maxSpeed.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
-      propertyPath: maxSpeed.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 152191487}

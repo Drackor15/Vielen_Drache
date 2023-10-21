@@ -20,6 +20,8 @@ public class BaseEnemy : MonoBehaviour {
     protected bool reachedEndOfPath;
     protected bool isChasing;
     protected float pathfindingRefreshTimer;
+    protected bool isPausingPatrol = false;
+    protected float patrolPauseStart;
 
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
@@ -27,11 +29,23 @@ public class BaseEnemy : MonoBehaviour {
     [SerializeField] protected float pathfindingUpdateFrequency = 0.2f;
     [SerializeField] protected float nextWaypointDistance;
     [SerializeField] protected float playerDetectRange;
+    [Tooltip("How much the Player Detection Range increases (percentage in float)")]
     [SerializeField] protected float chaseMultiplier = 1f;
+
+    [Header("Patrol & Idle Settings")]
+    [Tooltip("Set True if this Enemy is to patrol. False if they are to Idle.")]
+    [SerializeField] protected bool isDefaultPatrol = true;
+    [Tooltip("Directional Multiplier used to determine in which direction the enemy should " +
+             "begin their patrols. 1 = positive x direction. -1 = negative x direction.")]
+    [SerializeField] protected int patrolDirection = 1;
+    [Tooltip("How long an Enemy pauses (in seconds) when reaching one end of a patrol.")]
+    [SerializeField] protected int pausePatrolTime;
+    [SerializeField] protected LayerMask walkableGround;
 
     [Header("Enemy Stats")]
     [SerializeField] protected int hp;
     [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float patrolSpeed;
     [SerializeField] protected Vector2 maxSpeed;
 
     [Header("Attack Stats")]
@@ -58,12 +72,16 @@ public class BaseEnemy : MonoBehaviour {
     #region Enemy AI Methods
     /// <summary>
     /// If Player is detected, then increase Detection radius & Chase;
-    /// Otherwise decrease Detection radius & stop moving
+    /// Otherwise decrease Detection radius & patrol or stop moving
     /// </summary>
     protected virtual void EnemyAI() {
         if(IsPlayerDetected()) {
             IncreaseDetectRadius();
             ChasePlayer();
+        }
+        else if(isDefaultPatrol) {
+            DecreaseDetectRadius();
+            EnemyPatrol();
         }
         else {
             DecreaseDetectRadius();
@@ -80,6 +98,49 @@ public class BaseEnemy : MonoBehaviour {
         }
         else {
             MoveOnPath();
+        }
+    }
+
+    /// <summary>
+    /// Stops when moving towards a ledge and inits Pause Timer variables.
+    /// Counts down until it can move in the opposite direction to patrol.
+    /// </summary>
+    protected virtual void EnemyPatrol() {
+        if(IsNearLedge() && IsMoving()) {
+            Debug.Log("Nearing Ledge");
+            StopVelocity();
+            InitPausePatrolTimer();
+        }
+        else if(IsNearLedge() && isPausingPatrol) {
+            Debug.Log("Pause Patrol");
+            PausePatrolTimer();
+        }
+        else {
+            Debug.Log("Patrol");
+            PatrolMove();
+        }
+    }
+    #endregion
+
+    #region Debugging Methods
+    /// <summary>
+    /// Draws where the various Detection colliders would be.
+    /// Gizmos are only visible in the Unity Editor.
+    /// </summary>
+    protected virtual void OnDrawGizmos() {
+        coll = GetComponent<BoxCollider2D>();
+        if(coll != null) {
+            // Draw Detect Radius
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(coll.bounds.center, playerDetectRange);
+
+            // Draw Attack Box
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(coll.bounds.center, new Vector3(attackRange.x, attackRange.y));
+
+            // Draw IsNearLedge Collider
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(new Vector3(coll.transform.position.x + (patrolDirection * 2), coll.transform.position.y - 1f), new Vector3(1, 1));
         }
     }
     #endregion
@@ -169,6 +230,62 @@ public class BaseEnemy : MonoBehaviour {
             currentWaypoint++;
         }
     }
+
+    /// <summary>
+    /// Enemy moves in a direction based on patrolSpeed
+    /// </summary>
+    protected virtual void PatrolMove() {
+        rb.AddForce(new Vector2(patrolDirection * patrolSpeed * (Time.deltaTime * 100), rb.velocity.y));
+    }
+
+    /// <summary>
+    /// Stops enemy X and Y velocities completely
+    /// </summary>
+    protected virtual void StopVelocity() {
+        rb.velocity = new Vector2(0,0);
+    }
+    #endregion
+
+    #region Patrol Methods
+    /// <summary>
+    /// Checks if the Enemy if moving a significant amount in the X direction.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool IsMoving() {
+        return Mathf.Abs(rb.velocity.x) > 0.01f;
+    }
+
+    /// <summary>
+    /// Checks for walkable ground in the direction that the enemy walks
+    /// WARNING: the Gizmo that is drawing this collider is not tied to it at all.
+    /// So if you change values in here, you'll have to change the Gizmo too
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool IsNearLedge() {
+        return !Physics2D.BoxCast(new Vector2(coll.transform.position.x + (patrolDirection * 2), coll.transform.position.y),
+                                 new Vector2(1,1), 0f, Vector2.down, 1f, walkableGround);
+    }
+
+    /// <summary>
+    /// Init patrolPauseStart with current time & set isPausingPatrol to true.
+    /// </summary>
+    protected virtual void InitPausePatrolTimer() {
+        patrolPauseStart = Time.time;
+        isPausingPatrol = true;
+    }
+
+    /// <summary>
+    /// Checks if enough time has passed before resuming the patrol
+    /// in the opposite direction
+    /// </summary>
+    protected virtual void PausePatrolTimer() {
+        float timePassed = Time.time - patrolPauseStart;
+        Debug.Log("Time Passed: " + timePassed);
+        if(timePassed >= pausePatrolTime) {
+            isPausingPatrol = false;
+            patrolDirection *= -1;
+        }
+    }
     #endregion
 
     #region Enemy Attack Methods
@@ -183,25 +300,6 @@ public class BaseEnemy : MonoBehaviour {
 
     protected void Attack() {
         
-    }
-    #endregion
-
-    #region Debugging Methods
-    /// <summary>
-    /// Draws where the various Detection colliders would be.
-    /// Gizmos are only visible in the Unity Editor.
-    /// </summary>
-    protected virtual void OnDrawGizmos() {
-        coll = GetComponent<BoxCollider2D>();
-        if(coll != null) {
-            // Draw Detect Radius
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(coll.bounds.center, playerDetectRange);
-
-            //// Draw Attack Box
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(coll.bounds.center, new Vector3(attackRange.x, attackRange.y));
-        }
     }
     #endregion
 
