@@ -107,16 +107,13 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     protected virtual void EnemyPatrol() {
         if(IsNearLedge() && IsMoving()) {
-            Debug.Log("Nearing Ledge");
             StopVelocity();
             InitPausePatrolTimer();
         }
         else if(IsNearLedge() && isPausingPatrol) {
-            Debug.Log("Pause Patrol");
             PausePatrolTimer();
         }
         else {
-            Debug.Log("Patrol");
             PatrolMove();
         }
     }
@@ -140,7 +137,7 @@ public class BaseEnemy : MonoBehaviour {
 
             // Draw IsNearLedge Collider
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(new Vector3(coll.transform.position.x + (patrolDirection * 2), coll.transform.position.y - 1f), new Vector3(1, 1));
+            Gizmos.DrawWireCube(new Vector3(coll.transform.position.x + (patrolDirection * 1.5f), coll.transform.position.y - 1f), new Vector3(0.75f, 1));
         }
     }
     #endregion
@@ -262,8 +259,8 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     protected virtual bool IsNearLedge() {
-        return !Physics2D.BoxCast(new Vector2(coll.transform.position.x + (patrolDirection * 2), coll.transform.position.y),
-                                 new Vector2(1,1), 0f, Vector2.down, 1f, walkableGround);
+        return !Physics2D.BoxCast(new Vector2(coll.transform.position.x + (patrolDirection * 1.5f), coll.transform.position.y),
+                                 new Vector2(0.75f,1), 0f, Vector2.down, 1f, walkableGround);
     }
 
     /// <summary>
@@ -280,7 +277,6 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     protected virtual void PausePatrolTimer() {
         float timePassed = Time.time - patrolPauseStart;
-        Debug.Log("Time Passed: " + timePassed);
         if(timePassed >= pausePatrolTime) {
             isPausingPatrol = false;
             patrolDirection *= -1;

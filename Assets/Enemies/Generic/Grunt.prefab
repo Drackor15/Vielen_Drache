@@ -188,7 +188,7 @@ MonoBehaviour:
     m_Bits: 64
   hp: 0
   moveSpeed: 18
-  patrolSpeed: 12
+  patrolSpeed: 8
   maxSpeed: {x: 20, y: 20}
   attackDMG: 0
   attackRange: {x: 6, y: 1.5}
