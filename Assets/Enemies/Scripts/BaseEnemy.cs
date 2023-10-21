@@ -22,6 +22,7 @@ public class BaseEnemy : MonoBehaviour {
     protected float pathfindingRefreshTimer;
     protected bool isPausingPatrol = false;
     protected float patrolPauseStart;
+    protected SpriteRenderer sprite;
 
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
@@ -60,7 +61,7 @@ public class BaseEnemy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         seeker = GetComponent<Seeker>();
-
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void Update() {
@@ -75,6 +76,8 @@ public class BaseEnemy : MonoBehaviour {
     /// Otherwise decrease Detection radius & patrol or stop moving
     /// </summary>
     protected virtual void EnemyAI() {
+        FlipSprite();
+
         if(IsPlayerDetected()) {
             IncreaseDetectRadius();
             ChasePlayer();
@@ -313,6 +316,16 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     protected virtual void Die() {
         // Implement death logic here
+    }
+    #endregion
+
+    #region Enemy Animation Methods
+    /// <summary>
+    /// Flips Enemy Sprite based on movement direction.
+    /// </summary>
+    private void FlipSprite() {
+        if(rb.velocity.x > 0.2f) { sprite.flipX = false; }
+        else if(rb.velocity.x < -0.2f) { sprite.flipX = true; }
     }
     #endregion
 }
