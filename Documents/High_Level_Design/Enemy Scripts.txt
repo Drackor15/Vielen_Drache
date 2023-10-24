@@ -1,3 +1,0 @@
-##  ##
-
-(segregate the behaviour outlined in Enemies.txt into different scripts)
