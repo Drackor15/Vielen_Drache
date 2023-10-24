@@ -1,0 +1,30 @@
+### Grunt ###
+- Detects where Player is within a certain radius. When detected it
+  will activate a larger radius where it will 'know' where the Player
+  is at all times (If Player leaves this radius they will stop chasing).
+
+- Will Path (is capable of jumping) to Player when it detects her.
+  Will halt to take a swing.
+
+- When within a certain range it will swipe (attack) at her.
+  (bounding box is square)
+
+
+### Archer Grunt ###
+- same as Grunt but attack bounds is a radius
+
+
+### Kingpin ###
+- Patrols when idle
+
+- Limited Cone of Vision which is visible to Player. When Player is detected, 
+  activate a radius where it will 'know' where the Player is at all times
+  (If Player leaves this radius Search will be activated).
+
+- Search: path to last known player location, then activate a faster version of Patrol
+
+- 2 health/ deals 1 DMG
+
+
+### Buffpin ###
+same as Kingpin but attack spd is faster and it deals 2 DMG and is considerably swole

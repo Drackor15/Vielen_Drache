@@ -1,0 +1,101 @@
+///////////////////////////////////////////////////////////////////////////////
+ 
+	 ## Game Loop ##
+		|
+		'-> As dragons are saved, player gets more tools in their tool belt.
+		|
+		'-> 3 lives and then you're out.
+		|
+		'-> Checkpoints (Optional) - Dark Souls bonfire, but it's a dragon nest that the princess sleeps in.
+		|	|
+ 		|	'-> (Dragon drops princess off in nest when entering a checkpoint-confirmed level.)
+		|
+		'-> Ending levels (, mostly boss fights? Or freeing dragons from various stuff?) topped with finished with dance animation?
+
+///////////////////////////////////////////////////////////////////////////////
+
+	    ## Hub ##
+		|
+		'-> Cave - fills with gold as we kill kings
+		|
+		'-> Dragon Egg Collectibles
+			|
+			'-> 1-UP equivalent?
+
+///////////////////////////////////////////////////////////////////////////////
+
+	## World Map ##
+		|
+		'-> Different collection of levels (thematically.) = Different kingdoms.
+		|
+		'-> Finish core game and a single kingdom. Then, add more kingdoms as each kingdoms is complete and play-tested.
+
+///////////////////////////////////////////////////////////////////////////////
+
+	     ## Threats/Challenges ##
+			|
+			'-> Basic Grunts (1 hit KO)
+			|
+			'-> Pegasus knight (Mini-boss for halfway through a kingdom?)
+			|
+			'-> Knight w/ Spiky Helmet (Elite enemy?)
+			|
+			'-> Each kingdom comes with an end-of-area boss that is the monarch/ruler (Some levels bosses?)
+			|
+			'-> Final Boss is dad.
+			|
+			'-> Scrolling Levels. (Test the waters with this in a playlets world.)
+
+///////////////////////////////////////////////////////////////////////////////
+
+	 ## Movement ##
+		|
+		'-> Dashing (In all directions? Or just some directions?)
+		|
+		'-> Double Jumping (Unsure of this as of right now.)
+		|
+		'-> Gliding (Situational? Or maybe a level traversal concept?)
+		|
+		'-> Crouch/Duck (Needed for level traversal? And could maybe force a faster fall with this.)
+		|
+		'-> Sliding? (Icy worlds? Or maybe just a minor amount always to accentuate momentum?)
+
+///////////////////////////////////////////////////////////////////////////////
+
+	   ## Tools ##
+		|
+		'-> Potions/Crystals
+		|	|
+		|	'-> Think Mario mushroom power-ups.
+		|		|
+		|		'-> Extra health/size increase?
+		|		|
+		|		'-> x2 Extra health/size increase/attack technique?
+		|		|
+		|		'-> x2 Extra health/size increase/movement technique?
+		|		|
+		|		'-> More or less kinds? (Speed boost, monkey's paw good and bad thing?)
+		|
+		'-> Landing on enemies to damage/KO them?
+			|
+			'-> Other methods to take care of enemies?
+				|
+				'-> Environmental?
+				|
+				'-> Item/consumable for the player to use?
+				|
+				'-> Enemy specific? (Make them run into walls or something similar to damage a kind of enemy.)
+
+///////////////////////////////////////////////////////////////////////////////
+
+	## Development ##
+		|
+		'-> Chunk loading system for enemies, graphics, etc.
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
