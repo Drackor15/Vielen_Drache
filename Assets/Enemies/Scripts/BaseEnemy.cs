@@ -8,30 +8,22 @@ using Pathfinding;
 /// A base class for all basic enemies. Classes that inherit this class should
 /// base.Start() or base.Update() if they wish to extend but not fully override
 /// the core functionality of this class.
+/// 
+/// As of 11/23/23 the scope of this class has been drastically reduced. If you want
+/// to build upon the previously conceived enemy class (enemies were going to be more interesting/complex),
+/// check out commit ee6451a
 /// </summary>
 public class BaseEnemy : MonoBehaviour {
     #region Enemy Variables
     protected Rigidbody2D rb;
     protected BoxCollider2D coll;
     protected float dirX = 0f;
-    protected Path path;
-    protected Seeker seeker;
-    protected int currentWaypoint;
-    protected bool reachedEndOfPath;
-    protected bool isChasing;
-    protected float pathfindingRefreshTimer;
     protected bool isPausingPatrol = false;
     protected float patrolPauseStart;
     protected SpriteRenderer sprite;
 
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
-    [SerializeField] protected Transform playerTransform;
-    [SerializeField] protected float pathfindingUpdateFrequency = 0.2f;
-    [SerializeField] protected float nextWaypointDistance;
-    [SerializeField] protected float playerDetectRange;
-    [Tooltip("How much the Player Detection Range increases (percentage in float)")]
-    [SerializeField] protected float chaseMultiplier = 1f;
 
     [Header("Patrol & Idle Settings")]
     [Tooltip("Set True if this Enemy is to patrol. False if they are to Idle.")]
@@ -45,28 +37,20 @@ public class BaseEnemy : MonoBehaviour {
 
     [Header("Enemy Stats")]
     [SerializeField] protected int hp;
-    [SerializeField] protected float moveSpeed;
     [SerializeField] protected float patrolSpeed;
-    [SerializeField] protected Vector2 maxSpeed;
 
     [Header("Attack Stats")]
     [SerializeField] protected int attackDMG;
-    [SerializeField] protected Vector2 attackRange;
     [SerializeField] protected Vector2 attackSize;
-    [SerializeField] protected float telegraphSpeed;
-    [SerializeField] protected float attackSpeed;
     #endregion
 
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
-        seeker = GetComponent<Seeker>();
         sprite = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void Update() {
-        ClampVelocity();
-        TryUpdatePathToPlayer();
         EnemyAI();
     }
 
@@ -78,29 +62,11 @@ public class BaseEnemy : MonoBehaviour {
     protected virtual void EnemyAI() {
         FlipSprite();
 
-        if(IsPlayerDetected()) {
-            IncreaseDetectRadius();
-            ChasePlayer();
-        }
-        else if(isDefaultPatrol) {
-            DecreaseDetectRadius();
+        if(isDefaultPatrol) {
             EnemyPatrol();
         }
-        else {
-            DecreaseDetectRadius();
-        }
-    }
-
-    /// <summary>
-    /// Chase the Player until in Attack Range.
-    /// Once the Player is in Attack Range, stop moving & attack.
-    /// </summary>
-    protected virtual void ChasePlayer() {
-        if(IsPlayerInAttackRange()) {
-            //Attack();
-        }
-        else {
-            MoveOnPath();
+        if(IsPlayerInAttackable()) {
+            Attack();
         }
     }
 
@@ -130,13 +96,9 @@ public class BaseEnemy : MonoBehaviour {
     protected virtual void OnDrawGizmos() {
         coll = GetComponent<BoxCollider2D>();
         if(coll != null) {
-            // Draw Detect Radius
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(coll.bounds.center, playerDetectRange);
-
             // Draw Attack Box
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(coll.bounds.center, new Vector3(attackRange.x, attackRange.y));
+            Gizmos.DrawWireCube(coll.bounds.center, new Vector3(attackSize.x, attackSize.y));
 
             // Draw IsNearLedge Collider
             Gizmos.color = Color.yellow;
@@ -145,92 +107,7 @@ public class BaseEnemy : MonoBehaviour {
     }
     #endregion
 
-    #region Player Detection Methods
-    /// <summary>
-    /// Checks for the Player within a certain radius.
-    /// Override this method to use an alternative detection shape.
-    /// </summary>
-    /// <returns>returns <see langword="true"/> if Player is in radius;
-    /// returns <see langword="false"/> if Player is not</returns>
-    protected virtual bool IsPlayerDetected() {
-        return Physics2D.CircleCast(coll.bounds.center, playerDetectRange, Vector2.left, 0f, playerLayer);
-    }
-
-    /// <summary>
-    /// Increases Detection Radius Once
-    /// </summary>
-    protected virtual void IncreaseDetectRadius() {
-        if(!isChasing) {
-            playerDetectRange *= chaseMultiplier;
-            isChasing = true;
-        }
-    }
-
-    /// <summary>
-    /// Decreases Detection Radius Once
-    /// </summary>
-    protected virtual void DecreaseDetectRadius() {
-        if(isChasing) {
-            playerDetectRange /= chaseMultiplier;
-            isChasing = false;
-        }
-    }
-
-    /// <summary>
-    /// Update Path to Player after a fixed amount of time.
-    /// </summary>
-    protected virtual void TryUpdatePathToPlayer() {
-        pathfindingRefreshTimer += Time.fixedDeltaTime;
-
-        if(pathfindingRefreshTimer >= pathfindingUpdateFrequency) {
-            pathfindingRefreshTimer = 0f;
-            UpdatePathToPlayer();
-        }
-    }
-
-    /// <summary>
-    /// Updates Path to Player if not already doing so.
-    /// </summary>
-    protected virtual void UpdatePathToPlayer() {
-        if(IsPlayerDetected() && !IsPlayerInAttackRange() && seeker.IsDone()) {
-            seeker.StartPath(rb.position, playerTransform.position, OnPathComplete);
-        }
-    }
-
-    /// <summary>
-    /// Inits path variables as long as nothing went wrong with path generation.
-    /// </summary>
-    /// <param name="p"></param>
-    protected virtual void OnPathComplete(Path p) {
-        if(!p.error) {
-            path = p;
-            currentWaypoint = 0;
-        }
-    }
-    #endregion
-
     #region Enemy Movement Methods
-    /// <summary>
-    /// Makes sure that Enemy X and Y velocities don't exceed maxSpeed.x & maxSpeed.y
-    /// </summary>
-    protected virtual void ClampVelocity() {
-        float clampedX = Mathf.Clamp(rb.velocity.x, -maxSpeed.x, maxSpeed.x);
-        float clampedY = Mathf.Clamp(rb.velocity.y, -maxSpeed.y, maxSpeed.y);
-        rb.velocity = new Vector2(clampedX, clampedY);
-    }
-
-    /// <summary>
-    /// Adds force in the direction of the next waypoint on the path
-    /// </summary>
-    protected virtual void MoveOnPath() {
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        rb.AddForce(new Vector2(Mathf.RoundToInt(direction.x) * moveSpeed * (Time.deltaTime * 100), rb.velocity.y));
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if(distance < nextWaypointDistance) {
-            currentWaypoint++;
-        }
-    }
-
     /// <summary>
     /// Enemy moves in a direction based on patrolSpeed
     /// </summary>
@@ -293,12 +170,12 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     /// <returns> returns <see langword="true"/> if Player is in attack range;
     /// returns <see langword="false"/> if Player is not</returns>
-    protected virtual bool IsPlayerInAttackRange() {
-        return Physics2D.BoxCast(coll.bounds.center, new Vector2(attackRange.x, attackRange.y), 0f, Vector2.left, 0f, playerLayer);
+    protected virtual bool IsPlayerInAttackable() {
+        return Physics2D.BoxCast(coll.bounds.center, new Vector2(attackSize.x, attackSize.y), 0f, Vector2.left, 0f, playerLayer);
     }
 
     protected void Attack() {
-        
+
     }
     #endregion
 

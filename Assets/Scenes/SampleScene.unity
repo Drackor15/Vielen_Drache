@@ -80774,6 +80774,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: moveSpeed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
+      propertyPath: patrolSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496140012840354275, guid: c8bbdf562b121e54c80fa9e978af5e84, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 152191487}
