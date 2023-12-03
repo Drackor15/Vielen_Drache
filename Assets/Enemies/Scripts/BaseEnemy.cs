@@ -36,8 +36,14 @@ public class BaseEnemy : MonoBehaviour {
     [SerializeField] protected LayerMask walkableGround;
 
     [Header("Enemy Stats")]
-    [SerializeField] protected int hp;
+    [SerializeField] protected int maxHp;
     [SerializeField] protected float patrolSpeed;
+    [Tooltip("The hitbox which the Player can collide with, to DMG this Enemy")]
+    [SerializeField] protected Vector2 weakspotSize;
+    [Tooltip("Ignore the Z dimension")]
+    [SerializeField] protected Vector3 weakspotOffset;
+    [SerializeField] protected int dmgTakenFromPlayer;
+    protected int currentHp;
 
     [Header("Attack Stats")]
     [SerializeField] protected int attackDMG;
@@ -48,6 +54,7 @@ public class BaseEnemy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        currentHp = maxHp;
     }
 
     protected virtual void Update() {
@@ -65,8 +72,16 @@ public class BaseEnemy : MonoBehaviour {
         if(isDefaultPatrol) {
             EnemyPatrol();
         }
-        if(IsPlayerInAttackable()) {
+        if(IsPlayerInAttackable() && !IsPlayerInWeakspot()) {
             Attack();
+        }
+        if(IsPlayerInWeakspot()) {
+            TakeDamage(dmgTakenFromPlayer);
+        }
+        if(currentHp <= 0) {
+            //PlayDeathSFX();
+            //PlayDeathAnim();
+            Destroy(gameObject);
         }
     }
 
@@ -98,11 +113,15 @@ public class BaseEnemy : MonoBehaviour {
         if(coll != null) {
             // Draw Attack Box
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(coll.bounds.center, new Vector3(attackSize.x, attackSize.y));
+            Gizmos.DrawWireCube(coll.bounds.center, new Vector2(attackSize.x, attackSize.y));
 
             // Draw IsNearLedge Collider
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(new Vector3(coll.transform.position.x + (patrolDirection * 1.5f), coll.transform.position.y - 1f), new Vector3(0.75f, 1));
+
+            // Draw IsNearLedge Collider
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(coll.bounds.center + weakspotOffset, new Vector2(weakspotSize.x, weakspotSize.y));
         }
     }
     #endregion
@@ -184,18 +203,20 @@ public class BaseEnemy : MonoBehaviour {
 
     #region Enemy Health Methods
     /// <summary>
-    /// 
+    /// Checks if the Player collides with the enemy's weakspot
     /// </summary>
-    /// <param name="damage"></param>
-    protected virtual void TakeDamage(int damage) {
-        // Implement damage logic here
+    /// <returns> returns <see langword="true"/> if Player is colliding;
+    /// returns <see langword="false"/> if Player is not</returns>
+    protected virtual bool IsPlayerInWeakspot() {
+        return Physics2D.BoxCast(coll.bounds.center + weakspotOffset, new Vector2(weakspotSize.x, weakspotSize.y), 0f, Vector2.left, 0f, playerLayer);
     }
 
     /// <summary>
-    /// 
+    /// Subtracts from currentHP
     /// </summary>
-    protected virtual void Die() {
-        // Implement death logic here
+    /// <param name="damage"></param>
+    protected virtual void TakeDamage(int damage) {
+        currentHp -= damage;
     }
     #endregion
 
