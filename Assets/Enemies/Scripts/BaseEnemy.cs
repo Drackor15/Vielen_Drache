@@ -174,8 +174,11 @@ public class BaseEnemy : MonoBehaviour {
         return Physics2D.BoxCast(coll.bounds.center, new Vector2(attackSize.x, attackSize.y), 0f, Vector2.left, 0f, playerLayer);
     }
 
+    /// <summary>
+    /// DMGs the Player based on this Enemy's attackDMG.
+    /// </summary>
     protected void Attack() {
-
+        EventManager.ModifyPlayerHealth(-attackDMG);
     }
     #endregion
 
