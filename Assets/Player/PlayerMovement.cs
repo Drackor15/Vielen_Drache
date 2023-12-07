@@ -81,6 +81,13 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = new Vector2(dirX * 11.0f, rb.velocity.y);
 
+        /*
+        if (Input.GetButtonDown("Escape"))
+        {
+            Application.Quit();
+        }
+        */
+
         if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
