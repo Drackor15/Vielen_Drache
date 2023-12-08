@@ -4,15 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
     #region Player HP Fields
-    //Just look at the names damn it
+    // HP Fields (Just look at the names, damn it!)
     [Header("HP")]
     [SerializeField] public int MaxHP;
     public int CurrentHP;
 
-    //Iframes time
+    // Iframes Time (Iframes being when the player receives damage, they are granted a
+    //  brief moment of invincibility to reach safety before the next instance of damage.)
     [Header("Iframes")]
-    [SerializeField] private float IFrameDuration; // try 1.0f
-    [SerializeField] private float IFrameTimer;// try 0.0f
+    [SerializeField] private float IFrameDuration;  // Try 1.0f
+    [SerializeField] private float IFrameTimer;     // Try 0.0f
     [SerializeField] private int NumFlashes;
     private bool isInvincible = false;
     private SpriteRenderer SRend;
@@ -27,17 +28,25 @@ public class PlayerHealth : MonoBehaviour {
         SRend = GetComponent<SpriteRenderer>();
     }
 
+    #region Audio Variables
+    // Damage Received (Audio/SFX Variable)
+    [SerializeField] private AudioSource damageReceivedSoundEffect;
+
+    // Death (Audio/SFX Variable)
+    [SerializeField] private AudioSource deathSoundEffect;
+    #endregion
+
     void Update() {
-        //testing dmg and show health is working
+        // (TESTING) Use 'Q' to damage the player and show that the health system is working.
         if(Input.GetKeyUp(KeyCode.Q)) {
             ModifyHealth(-1);
         }
 
-        // Update the invincibility timer
+        // Update the invincibility timer.
         if(isInvincible) {
             IFrameTimer -= Time.deltaTime;
 
-            // Check if invincibility has expired
+            // Check if invincibility has expired.
             if(IFrameTimer <= 0.0f) {
                 isInvincible = false;
             }
@@ -49,7 +58,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     /// <summary>
-    /// Adds or Subtracts Player Health if amount is + or -, respectively.
+    /// Adds to or subtracts from the player health total if amount is '+' or '-' (respectively).
     /// </summary>
     /// <param name="amount"></param>
     private void ModifyHealth(int amount) {
@@ -57,14 +66,22 @@ public class PlayerHealth : MonoBehaviour {
             CurrentHP += amount;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHP);
 
-            // Is Player taking damage?
-            if(amount < 0) {
-                // Is Player Dead?
-                if(CurrentHP <= 0) {
-                    //death, will just restart the level until gameover screen is done
+            if(amount < 0) // Is the player taking damage?
+            {    
+                if(CurrentHP <= 0) // Is the player dead?
+                {    
+                    // If the player dies, the death sound effect will play.
+                    deathSoundEffect.Play();
+
+                    // Death! (Will just restart the level every time until the "Gameover" screen is done.)
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                     return;
                 }
+
+                // If just damage taken, the damage received sound effect will play.
+                damageReceivedSoundEffect.Play();
+
+                // Apply visual damage indicator
                 StartCoroutine(DMGFlash());
                 isInvincible = true;
                 IFrameTimer = IFrameDuration;
@@ -75,7 +92,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     /// <summary>
-    /// Briefly makes the Player Sprite flash red when taking DMG.
+    /// Briefly makes the player sprite flash red when taking damage.
     /// </summary>
     IEnumerator DMGFlash() {
         for(int i = 0; i < NumFlashes; i++) {

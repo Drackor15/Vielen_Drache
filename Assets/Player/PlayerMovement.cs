@@ -45,6 +45,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
     #endregion
 
+    #region Audio Variables
+    // Jump_1 Audio Sound Effect Variable
+    [SerializeField] private AudioSource jumpSoundEffect1;
+
+    // Jump_2 Audio Sound Effect Variable
+    [SerializeField] private AudioSource jumpSoundEffect2;
+
+    // Jump_3 Audio Sound Effect Variable
+    [SerializeField] private AudioSource jumpSoundEffect3;
+    #endregion
+
     // Start is called before the first frame update.
     private void Start()
     {
@@ -94,16 +105,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 holdingJumpCounter = 20;
                 rb.velocity = new Vector2(rb.velocity.x, 14);
+                jumpSoundEffect1.Play();
             }
             else if (canDoubleJump)
             {
                 canDoubleJump = false;
                 rb.velocity = new Vector2(rb.velocity.x, 22);
+                jumpSoundEffect2.Play();
             }
             else if (playerPower == PlayerPower.Mobility && canTripleJump)
             {
                 canTripleJump = false;
                 rb.velocity = new Vector2(rb.velocity.x, 22);
+                jumpSoundEffect3.Play();
             }
         }
         else if (Input.GetButtonUp("Jump"))
