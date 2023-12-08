@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,15 @@ public class PlayerHealth : MonoBehaviour {
     [Header("HP")]
     [SerializeField] public int MaxHP;
     public int CurrentHP;
+
+    // Heart Objects
+    [Header("HP Vis")]
+    public Object Heart1;
+    public Object Heart2;
+    public Object Heart3;
+    public Object EH1;
+    public Object EH2;
+    public Object EH3;
 
     //Iframes time
     [Header("Iframes")]
@@ -41,6 +51,42 @@ public class PlayerHealth : MonoBehaviour {
             if(IFrameTimer <= 0.0f) {
                 isInvincible = false;
             }
+        }
+
+        if (CurrentHP == 3)
+        {
+            EH1.GameObject().SetActive(false);
+            EH2.GameObject().SetActive(false);
+            EH3.GameObject().SetActive(false);
+            Heart1.GameObject().SetActive(true);
+            Heart2.GameObject().SetActive(true);
+            Heart3.GameObject().SetActive(true);
+        }
+        else if (CurrentHP == 2) 
+        {
+            EH1.GameObject().SetActive(false);
+            EH2.GameObject().SetActive(false);
+            EH3.GameObject().SetActive(true);
+            Heart1.GameObject().SetActive(true);
+            Heart2.GameObject().SetActive(true);
+            Heart3.GameObject().SetActive(false);
+        }
+        else if (CurrentHP == 1)
+        {
+            EH1.GameObject().SetActive(false);
+            EH2.GameObject().SetActive(true);
+            EH3.GameObject().SetActive(true);
+            Heart1.GameObject().SetActive(true);
+            Heart2.GameObject().SetActive(false);
+            Heart3.GameObject().SetActive(false);
+        } else if (CurrentHP == 0) 
+        {
+            EH1.GameObject().SetActive(true);
+            EH2.GameObject().SetActive(true);
+            EH3.GameObject().SetActive(true);
+            Heart1.GameObject().SetActive(false);
+            Heart2.GameObject().SetActive(false);
+            Heart3.GameObject().SetActive(false);
         }
     }
 
