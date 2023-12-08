@@ -87,8 +87,9 @@ public class BaseEnemy : MonoBehaviour {
         }
         if(currentHp <= 0) {
             isDying = true;
-            //coll.enabled = false;
             //PlayDeathSFX();
+            rb.bodyType = RigidbodyType2D.Static;
+            coll.enabled = false;
             animator.SetInteger("animState", (int)AnimationState.dying);
         }
     }
