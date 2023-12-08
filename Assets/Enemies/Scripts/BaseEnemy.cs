@@ -21,6 +21,9 @@ public class BaseEnemy : MonoBehaviour {
     protected bool isPausingPatrol = false;
     protected float patrolPauseStart;
     protected SpriteRenderer sprite;
+    protected enum AnimationState { idle, patrol, patrolPause, dying };
+    protected Animator animator;
+    protected bool isDying = false;
 
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
@@ -54,6 +57,7 @@ public class BaseEnemy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         currentHp = maxHp;
     }
 
@@ -69,19 +73,23 @@ public class BaseEnemy : MonoBehaviour {
     protected virtual void EnemyAI() {
         FlipSprite();
 
-        if(isDefaultPatrol) {
+        if(isDefaultPatrol && !isDying) {
             EnemyPatrol();
         }
-        if(IsPlayerInAttackable() && !IsPlayerInWeakspot()) {
+        else {
+            animator.SetInteger("animState", (int)AnimationState.idle);
+        }
+        if(IsPlayerInAttackable() && !IsPlayerInWeakspot() && !isDying) {
             Attack();
         }
-        if(IsPlayerInWeakspot()) {
+        if(IsPlayerInWeakspot() && !isDying) {
             TakeDamage(dmgTakenFromPlayer);
         }
         if(currentHp <= 0) {
+            isDying = true;
+            //coll.enabled = false;
             //PlayDeathSFX();
-            //PlayDeathAnim();
-            Destroy(gameObject);
+            animator.SetInteger("animState", (int)AnimationState.dying);
         }
     }
 
@@ -95,9 +103,11 @@ public class BaseEnemy : MonoBehaviour {
             InitPausePatrolTimer();
         }
         else if(IsNearLedge() && isPausingPatrol) {
+            animator.SetInteger("animState", (int)AnimationState.patrolPause);
             PausePatrolTimer();
         }
         else {
+            animator.SetInteger("animState", (int)AnimationState.patrol);
             PatrolMove();
         }
     }
@@ -227,6 +237,15 @@ public class BaseEnemy : MonoBehaviour {
     private void FlipSprite() {
         if(rb.velocity.x > 0.2f) { sprite.flipX = false; }
         else if(rb.velocity.x < -0.2f) { sprite.flipX = true; }
+    }
+
+    /// <summary>
+    /// Attatch this to the end of Enemy Death animations so that the
+    /// instance of this game object is destroyed AFTER the death animation
+    /// has played.
+    /// </summary>
+    protected virtual void DestroyEnemy() {
+        Destroy(gameObject);
     }
     #endregion
 }
