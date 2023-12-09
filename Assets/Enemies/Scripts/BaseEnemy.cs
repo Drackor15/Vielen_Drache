@@ -25,6 +25,10 @@ public class BaseEnemy : MonoBehaviour {
     protected Animator animator;
     protected bool isDying = false;
 
+    // (For Audio)
+    // Initializing the footstepController field (a timer for footstep SFX).
+    public FootstepController footstepController;
+
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
 
@@ -53,17 +57,21 @@ public class BaseEnemy : MonoBehaviour {
     [SerializeField] protected Vector2 attackSize;
     #endregion
 
+    #region (Protected) Runtime
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        footstepController = GetComponentInChildren<FootstepController>();
         currentHp = maxHp;
     }
 
     protected virtual void Update() {
         EnemyAI();
+        WalkingCheck();
     }
+    #endregion
 
     #region Enemy AI Methods
     /// <summary>
@@ -247,6 +255,21 @@ public class BaseEnemy : MonoBehaviour {
     /// </summary>
     protected virtual void DestroyEnemy() {
         Destroy(gameObject);
+    }
+    #endregion
+
+    #region Enemy Audio Section
+    private void WalkingCheck()
+    {
+        if ((dirX != 0))
+        {
+            footstepController.StartWalking();
+        }
+
+        else
+        {
+            footstepController.StopWalking();
+        }
     }
     #endregion
 }

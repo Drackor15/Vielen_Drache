@@ -22,6 +22,10 @@ public class BaseBoss : MonoBehaviour {
     protected float pathfindingRefreshTimer;
     protected SpriteRenderer sprite;
 
+    // (For Audio)
+    // Initializing the footstepController field (a timer for footstep SFX).
+    public FootstepController footstepController;
+
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected Transform playerTransform;
@@ -44,18 +48,22 @@ public class BaseBoss : MonoBehaviour {
     [SerializeField] protected float attackSpeed;
     #endregion
 
+    #region (Protected) Runtime
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         seeker = GetComponent<Seeker>();
         sprite = GetComponent<SpriteRenderer>();
+        footstepController = GetComponentInChildren<FootstepController>();
     }
 
     protected virtual void Update() {
         ClampVelocity();
         TryUpdatePathToPlayer();
         EnemyAI();
+        WalkingCheck();
     }
+    #endregion
 
     #region Enemy AI Methods
     /// <summary>
@@ -240,6 +248,21 @@ public class BaseBoss : MonoBehaviour {
     private void FlipSprite() {
         if(rb.velocity.x > 0.2f) { sprite.flipX = false; }
         else if(rb.velocity.x < -0.2f) { sprite.flipX = true; }
+    }
+    #endregion
+
+    #region Enemy Audio Section
+    private void WalkingCheck()
+    {
+        if ((dirX != 0))
+        {
+            footstepController.StartWalking();
+        }
+
+        else
+        {
+            footstepController.StopWalking();
+        }
     }
     #endregion
 }

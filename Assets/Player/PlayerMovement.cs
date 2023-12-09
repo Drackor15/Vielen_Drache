@@ -54,8 +54,13 @@ public class PlayerMovement : MonoBehaviour
 
     // Jump_3 Audio Sound Effect Variable
     [SerializeField] private AudioSource jumpSoundEffect3;
+
+    // Initializing the footstepController field (a timer for footstep SFX).
+    public FootstepController footstepController;
+
     #endregion
 
+    #region Runtime
     // Start is called before the first frame update.
     private void Start()
     {
@@ -63,7 +68,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-//        anim = GetComponent<Animator>();
+        footstepController = GetComponentInChildren<FootstepController>(); // Get the FootstepController component.
+        // anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame.
@@ -72,14 +78,16 @@ public class PlayerMovement : MonoBehaviour
         UpdatePlayerState();
         HandlePlayerInput();
         UpdatePlayerAnimation();
+        WalkingCheck();
     }
+    #endregion
 
     #region Update Methods
 
     private void UpdatePlayerState()
     {
         isGrounded = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);   // investigate
-        if ( isGrounded )
+        if (isGrounded)
         {
             canDoubleJump = true;
             canTripleJump = true;
@@ -127,6 +135,19 @@ public class PlayerMovement : MonoBehaviour
             if (holdingJumpCounter < 8)
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + 1.45f);
             --holdingJumpCounter;
+        }
+    }
+
+    private void WalkingCheck ()
+    {
+        if ((dirX != 0) && (isGrounded))
+        {
+            footstepController.StartWalking();
+        }
+
+        else
+        {
+            footstepController.StopWalking();
         }
     }
 

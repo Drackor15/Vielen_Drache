@@ -3,7 +3,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour 
+{
+    #region Audio Variables
+    // Damage Received (Audio/SFX Variable)
+    [SerializeField] private AudioSource damageReceivedSoundEffect;
+
+    // Death (Audio/SFX Variable)
+    [SerializeField] private AudioSource deathSoundEffect;
+    #endregion
+
     #region Player HP Fields
     // HP Fields (Just look at the names, damn it!)
     [Header("HP")]
@@ -30,6 +39,7 @@ public class PlayerHealth : MonoBehaviour {
     private SpriteRenderer SRend;
     #endregion
 
+    #region Runtime
     private void OnEnable() {
         EventManager.OnPlayerHealthChanged.AddListener(ModifyHealth);
     }
@@ -38,14 +48,6 @@ public class PlayerHealth : MonoBehaviour {
         CurrentHP = MaxHP;
         SRend = GetComponent<SpriteRenderer>();
     }
-
-    #region Audio Variables
-    // Damage Received (Audio/SFX Variable)
-    [SerializeField] private AudioSource damageReceivedSoundEffect;
-
-    // Death (Audio/SFX Variable)
-    [SerializeField] private AudioSource deathSoundEffect;
-    #endregion
 
     void Update() {
         // (TESTING) Use 'Q' to damage the player and show that the health system is working.
@@ -99,11 +101,15 @@ public class PlayerHealth : MonoBehaviour {
             Heart3.GameObject().SetActive(false);
         }
     }
+    #endregion
 
+    #region Event Manager Misc
     private void OnDisable() {
         EventManager.OnPlayerHealthChanged.RemoveListener(ModifyHealth);
     }
+    #endregion
 
+    #region Modify Health
     /// <summary>
     /// Adds to or subtracts from the player health total if amount is '+' or '-' (respectively).
     /// </summary>
@@ -137,7 +143,9 @@ public class PlayerHealth : MonoBehaviour {
             Debug.Log("Player Health: " + CurrentHP);
         }
     }
+    #endregion
 
+    #region Damage Flash
     /// <summary>
     /// Briefly makes the player sprite flash red when taking damage.
     /// </summary>
@@ -150,4 +158,5 @@ public class PlayerHealth : MonoBehaviour {
 
         }
     }
+    #endregion
 }
