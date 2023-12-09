@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 1431247062161954184}
   - component: {fileID: 6642379551440460369}
   - component: {fileID: 3402696762953944727}
+  - component: {fileID: 1294088871779899125}
   m_Layer: 0
   m_Name: FootstepManager(Grunt)
   m_TagString: Untagged
@@ -287,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSoundEffect: {fileID: 3402696762953944727}
   isWalking: 0
-  timeBetweenFootsteps: 0.5
+  timeBetweenFootsteps: 0.25
 --- !u!82 &3402696762953944727
 AudioSource:
   m_ObjectHideFlags: 0
@@ -384,3 +385,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1294088871779899125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940094033121785147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd0f6a68444313f4a9121a98838d40e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSoundEffect: {fileID: 0}
+  isWalking: 0
+  timeBetweenFootsteps: 0.5
