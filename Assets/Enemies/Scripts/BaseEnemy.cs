@@ -57,6 +57,11 @@ public class BaseEnemy : MonoBehaviour {
     [SerializeField] protected Vector2 attackSize;
     #endregion
 
+    #region Audio Variables
+    // Grunt Death Audio Sound Effect Variable
+    [SerializeField] private AudioSource gruntDeathSoundEffect;
+    #endregion
+
     #region (Protected) Runtime
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -93,9 +98,8 @@ public class BaseEnemy : MonoBehaviour {
         if(IsPlayerInWeakspot() && !isDying) {
             TakeDamage(dmgTakenFromPlayer);
         }
-        if(currentHp <= 0) {
+        if(currentHp == 0) {
             isDying = true;
-            //PlayDeathSFX();
             rb.bodyType = RigidbodyType2D.Static;
             coll.enabled = false;
             animator.SetInteger("animState", (int)AnimationState.dying);
@@ -236,6 +240,7 @@ public class BaseEnemy : MonoBehaviour {
     /// <param name="damage"></param>
     protected virtual void TakeDamage(int damage) {
         currentHp -= damage;
+        gruntDeathSoundEffect.Play(); // Play death SFX.
     }
     #endregion
 
@@ -261,7 +266,7 @@ public class BaseEnemy : MonoBehaviour {
     #region Enemy Audio Section
     private void WalkingCheck()
     {
-        if ((dirX != 0))
+        if (dirX != 0)
         {
             footstepController.StartWalking();
         }
