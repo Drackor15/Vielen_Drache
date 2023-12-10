@@ -142,7 +142,7 @@ public class BaseEnemy : MonoBehaviour {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(new Vector3(coll.transform.position.x + (patrolDirection * 1.5f), coll.transform.position.y - 1f), new Vector3(0.75f, 1));
 
-            // Draw IsNearLedge Collider
+            // Draw Weakspot Collider
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(coll.bounds.center + weakspotOffset, new Vector2(weakspotSize.x, weakspotSize.y));
         }
