@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4307039655772656932}
   - component: {fileID: 1905752883632728479}
   - component: {fileID: 2063780192615383843}
-  - component: {fileID: 1239466703995807976}
   m_Layer: 0
   m_Name: FootstepManager(Player)
   m_TagString: Untagged
@@ -145,21 +144,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1239466703995807976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237078927601562221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0f6a68444313f4a9121a98838d40e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSoundEffect: {fileID: 0}
-  isWalking: 0
-  timeBetweenFootsteps: 0.5
 --- !u!1 &310359861435506966
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +570,8 @@ GameObject:
   - component: {fileID: 5548609972785079163}
   - component: {fileID: 4219685156149628038}
   - component: {fileID: 2700484357585937240}
+  - component: {fileID: 8918380457345034770}
+  - component: {fileID: 4700925230671759469}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1259,6 +1245,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8918380457345034770
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550019646797786900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a785d329a172a3479ef2e81aff0e18f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4700925230671759469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550019646797786900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b28215d47fe5344931e728462eed7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5416749549095789048
 GameObject:
   m_ObjectHideFlags: 0
