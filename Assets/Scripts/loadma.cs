@@ -5,9 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class loadma : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        EventManager.OnWin.AddListener(Victory);
+    }
+    private void OnDisable()
+    {
+        EventManager.OnWin.RemoveListener(Victory);
+    }
+
     public void playGame()
     {
         SceneManager.LoadScene("Level");
+    }
+
+    public void playAgain()
+    {
+        SceneManager.LoadScene("Level");
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void Victory()
+    {
+        SceneManager.LoadScene("Victory");
     }
 
     public void quitGame()

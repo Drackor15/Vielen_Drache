@@ -84,6 +84,12 @@ public class PlayerMovement : MonoBehaviour
 
     #region Update Methods
 
+    // Player can win the game by entering a win collider zone.
+    private void Win()
+    {
+        EventManager.WinGame();
+    }
+
     private void UpdatePlayerState()
     {
         isGrounded = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);   // investigate
@@ -106,6 +112,12 @@ public class PlayerMovement : MonoBehaviour
             Application.Quit();
         }
         */
+
+        if (Input.GetKeyUp(KeyCode.V))
+        {
+            Console.WriteLine("V Pressed");
+            Win(); // Call this to enter the victory/endgame screen.
+        }
 
         if (Input.GetButtonDown("Jump"))
         {

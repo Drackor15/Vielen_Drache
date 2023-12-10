@@ -8,8 +8,13 @@ using UnityEngine.Events;
 public class EventManager : MonoBehaviour {
 
     public static UnityEvent<int> OnPlayerHealthChanged = new UnityEvent<int>();
+    public static UnityEvent OnWin = new UnityEvent();
 
     public static void ModifyPlayerHealth(int amount) {
         OnPlayerHealthChanged.Invoke(amount);
+    }
+
+    public static void WinGame() {
+        OnWin.Invoke();
     }
 }
