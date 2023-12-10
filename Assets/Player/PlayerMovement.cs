@@ -113,11 +113,13 @@ public class PlayerMovement : MonoBehaviour
         }
         */
 
+        /*
         if (Input.GetKeyUp(KeyCode.V))
         {
             Console.WriteLine("V Pressed");
             Win(); // Call this to enter the victory/endgame screen.
         }
+        */
 
         if (Input.GetButtonDown("Jump"))
         {
