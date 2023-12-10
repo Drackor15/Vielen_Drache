@@ -51,12 +51,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Update() {
         // (TESTING) Use 'Q' to damage the player and show that the health system is working.
-        if(Input.GetKeyUp(KeyCode.Q)) {
-            ModifyHealth(-1);
-        }
+        // if (Input.GetKeyUp(KeyCode.Q)) {
+        //    ModifyHealth(-1);
+        // }
 
         // Update the invincibility timer.
-        if(isInvincible) {
+        if (isInvincible) {
             IFrameTimer -= Time.deltaTime;
 
             // Check if invincibility has expired.
