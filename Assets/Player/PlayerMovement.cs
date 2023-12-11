@@ -31,14 +31,15 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
-//    private Animator anim;
+    private Animator anim;
+
     private float dirX = 0f;
 
     private bool isGrounded = false;
     private int holdingJumpCounter = 0;
     private bool canDoubleJump = false;
     private bool canTripleJump = false;
-    private double gOff = 0;
+    private enum AnimationState { idle, walking, jumping, falling };
 
     private PlayerPower playerPower = PlayerPower.Mobility;
 
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         footstepController = GetComponentInChildren<FootstepController>(); // Get the FootstepController component.
+        anim = GetComponent<Animator>();
         // anim = GetComponent<Animator>();
     }
 
@@ -172,10 +174,25 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void UpdatePlayerAnimation()
     {
+        AnimationState state;
         if (dirX > 0f)
+        {
+            state = AnimationState.walking;
             sprite.flipX = false;
+        }
         else if (dirX < 0f)
+        {
+            state = AnimationState.walking;
             sprite.flipX = true;
+        }
+        else state = AnimationState.idle;
+
+        if (rb.velocity.y > .1f)
+            state = AnimationState.jumping;
+        else if (rb.velocity.y < -.1f)
+            state = AnimationState.falling;
+
+        anim.SetInteger("state", (int)state);
     }
 
     #endregion
